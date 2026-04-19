@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OP Engineering — Ingeniería · Consultoría · Tecnología</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --dark: #0D1117;
+    --dark2: #161b22;
+    --gold: #F5A623;
+    --gold-dim: #F5A62366;
+    --gold-faint: #F5A62318;
+    --white: #FFFFFF;
+    --gray: #8B9299;
+    --light-bg: #F4F1EC;
+    --text-dark: #1A1A1A;
+    --text-mid: #444444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--light-bg); color: var(--text-dark); overflow-x: hidden; }
+  p, .service-item-text, .service-detail-text, .why-point-text, .timeline-text, .service-desc { text-align: justify; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: var(--dark); border-bottom: 1px solid var(--gold-dim);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 64px;
+  }
+  .nav-logo { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; }
+  .nav-logo-mark {
+    width: 36px; height: 36px; border: 1.5px solid var(--gold); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 500; color: var(--white); letter-spacing: 1px;
+  }
+  .nav-logo-text { font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500; color: var(--white); letter-spacing: 2px; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px;
+    color: var(--gray); text-decoration: none; text-transform: uppercase; transition: color 0.2s; cursor: pointer;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-cta { background: var(--gold); color: var(--dark) !important; padding: 8px 20px; border-radius: 2px; font-weight: 500 !important; }
+  .nav-cta:hover { background: #e09515; }
+
+  /* PAGES */
+  .page { display: none; padding-top: 64px; min-height: 100vh; }
+  .page.active { display: block; }
+
+  /* BUTTONS */
+  .btn-primary {
+    background: var(--gold); color: var(--dark); padding: 14px 32px;
+    font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    border: none; cursor: pointer; border-radius: 2px; transition: all 0.2s;
+    text-decoration: none; display: inline-block; font-weight: 500;
+  }
+  .btn-primary:hover { background: #e09515; transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; color: var(--white); padding: 14px 32px;
+    font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;
+    border: 1px solid rgba(255,255,255,0.2); cursor: pointer; border-radius: 2px; transition: all 0.2s;
+    text-decoration: none; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* SECTION BASICS */
+  .section { padding: 96px 48px; }
+  .section-dark { background: var(--dark); }
+  .section-light { background: var(--light-bg); }
+  .section-white { background: var(--white); }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 4px;
+    color: var(--gold); text-transform: uppercase; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(32px, 4vw, 48px); line-height: 1.15; margin-bottom: 16px; }
+
+  /* HERO */
+  .hero {
+    background: var(--dark); min-height: calc(100vh - 64px);
+    display: flex; align-items: center; position: relative; overflow: hidden; padding: 80px 48px;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(rgba(245,166,35,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(245,166,35,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-geo { position: absolute; right: -100px; top: 50%; transform: translateY(-50%); width: 600px; height: 600px; opacity: 0.12; }
+  .hero-content { position: relative; max-width: 720px; }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 4px; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+  .hero-title { font-family: 'DM Serif Display', serif; font-size: clamp(42px, 6vw, 72px); color: var(--white); line-height: 1.1; margin-bottom: 24px; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle { font-size: 17px; color: var(--gray); line-height: 1.7; margin-bottom: 48px; max-width: 560px; }
+  .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-stats { display: flex; gap: 48px; margin-top: 64px; padding-top: 48px; border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; }
+  .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 36px; color: var(--gold); display: block; }
+  .hero-stat-label { font-size: 12px; color: var(--gray); font-family: 'DM Mono', monospace; letter-spacing: 1px; }
+
+  /* HOME — 3 BLOCKS */
+  .blocks-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.15);
+  }
+  .block-card {
+    background: var(--dark); padding: 48px 40px; cursor: pointer;
+    transition: background 0.2s; position: relative; overflow: hidden;
+  }
+  .block-card::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--gold); transition: width 0.3s; }
+  .block-card:hover { background: #111820; }
+  .block-card:hover::after { width: 100%; }
+  .block-card-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .block-card-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--white); margin-bottom: 16px; line-height: 1.2; }
+  .block-card-services { display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+  .block-card-service { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+  .block-card-service::before { content: '—'; color: var(--gold-dim); }
+  .block-arrow { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 2px; }
+
+  /* WHY */
+  .why-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .why-points { display: flex; flex-direction: column; gap: 32px; margin-top: 40px; }
+  .why-point { display: flex; gap: 20px; align-items: flex-start; }
+  .why-point-num { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 2px; padding-top: 4px; min-width: 32px; }
+  .why-point-title { font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 8px; color: var(--text-dark); }
+  .why-point-text { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+  .why-visual { background: var(--dark); padding: 48px; border-left: 3px solid var(--gold); }
+  .why-quote { font-family: 'DM Serif Display', serif; font-size: 24px; color: var(--white); line-height: 1.5; font-style: italic; }
+  .why-quote-author { margin-top: 24px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 2px; }
+
+  /* SERVICIOS PAGE — BLOCKS */
+  .services-block {
+    padding: 0 48px 80px;
+  }
+  .services-block-header {
+    padding: 64px 0 48px;
+    border-bottom: 1px solid rgba(245,166,35,0.15);
+    margin-bottom: 48px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 40px;
+  }
+  .services-block-num {
+    font-family: 'DM Mono', monospace; font-size: 80px; color: rgba(245,166,35,0.1);
+    line-height: 1; font-weight: 500; flex-shrink: 0;
+  }
+  .services-block-title { font-family: 'DM Serif Display', serif; font-size: 40px; color: var(--text-dark); line-height: 1.1; }
+  .services-block-desc { font-size: 15px; color: var(--text-mid); line-height: 1.7; max-width: 480px; margin-top: 12px; }
+
+  .services-list { display: flex; flex-direction: column; gap: 2px; }
+  .service-item {
+    background: var(--white); padding: 40px 48px;
+    border-left: 3px solid transparent; transition: border-color 0.2s;
+  }
+  .service-item:hover { border-left-color: var(--gold); }
+  .service-item-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; cursor: pointer; }
+  .service-item-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 8px; }
+  .service-item-title { font-family: 'DM Serif Display', serif; font-size: 26px; color: var(--text-dark); line-height: 1.2; }
+  .service-item-body { margin-top: 24px; display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start; }
+  .service-item-text { font-size: 15px; color: var(--text-mid); line-height: 1.8; }
+  .service-item-includes { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .service-item-includes li { font-size: 13px; color: var(--text-mid); display: flex; gap: 10px; align-items: flex-start; line-height: 1.5; }
+  .service-item-includes li::before { content: '→'; color: var(--gold); font-family: 'DM Mono', monospace; flex-shrink: 0; }
+  .service-item-cta { margin-top: 28px; }
+
+  .block-divider { height: 2px; background: linear-gradient(90deg, var(--gold) 0%, transparent 100%); margin: 0 48px; opacity: 0.3; }
+
+  /* MANTIX */
+  .mantix-hero { background: var(--dark); padding: 80px 48px; text-align: center; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(245,166,35,0.1); max-width: 900px; margin: 0 auto 64px; }
+  .pricing-card { background: var(--dark); padding: 40px 32px; text-align: center; position: relative; }
+  .pricing-card.featured { background: #111820; border-top: 2px solid var(--gold); }
+  .pricing-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--gold); color: var(--dark); font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; padding: 4px 12px; text-transform: uppercase; }
+  .pricing-name { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .pricing-price { font-family: 'DM Serif Display', serif; font-size: 48px; color: var(--white); margin-bottom: 4px; }
+  .pricing-period { font-size: 12px; color: var(--gray); margin-bottom: 32px; font-family: 'DM Mono', monospace; }
+  .pricing-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; text-align: left; }
+  .pricing-features li { font-size: 13px; color: var(--gray); display: flex; gap: 8px; align-items: flex-start; }
+  .pricing-features li::before { content: '✓'; color: var(--gold); flex-shrink: 0; }
+
+  .mantix-demo { background: var(--light-bg); padding: 64px 48px; text-align: center; }
+  .demo-preview { max-width: 900px; margin: 40px auto 0; background: var(--dark); border: 1px solid rgba(245,166,35,0.2); border-radius: 4px; overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.15); }
+  .demo-bar { background: #161b22; padding: 12px 20px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid rgba(245,166,35,0.1); }
+  .demo-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .demo-url { background: rgba(255,255,255,0.05); border-radius: 4px; padding: 4px 16px; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); margin-left: 12px; flex: 1; text-align: left; }
+  .demo-body { padding: 48px 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .demo-stat { background: rgba(255,255,255,0.04); border: 1px solid rgba(245,166,35,0.1); border-radius: 4px; padding: 20px; text-align: left; }
+  .demo-stat-label { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+  .demo-stat-val { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--white); }
+  .demo-stat-sub { font-size: 11px; color: var(--gold); font-family: 'DM Mono', monospace; margin-top: 4px; }
+  .demo-cta { padding: 32px 40px; border-top: 1px solid rgba(245,166,35,0.1); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+  .demo-cta-text { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--gray); letter-spacing: 1px; }
+
+  /* NOSOTROS */
+  .about-hero { background: var(--dark); padding: 96px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .timeline { display: flex; flex-direction: column; }
+  .timeline-item { display: flex; gap: 24px; padding-bottom: 32px; position: relative; }
+  .timeline-item:not(:last-child)::before { content: ''; position: absolute; left: 19px; top: 40px; bottom: 0; width: 1px; background: rgba(245,166,35,0.2); }
+  .timeline-dot { width: 40px; height: 40px; border: 1.5px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); }
+  .timeline-year { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); letter-spacing: 2px; margin-bottom: 6px; }
+  .timeline-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 4px; }
+  .timeline-text { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* CONTACTO */
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .contact-form { display: flex; flex-direction: column; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; }
+  .form-group label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 2px; color: var(--text-mid); text-transform: uppercase; }
+  .form-group input, .form-group select, .form-group textarea { background: var(--white); border: 1px solid rgba(0,0,0,0.12); padding: 14px 16px; font-size: 15px; font-family: 'Inter', sans-serif; color: var(--text-dark); border-radius: 2px; outline: none; transition: border-color 0.2s; width: 100%; }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--gold); }
+  .form-group textarea { resize: vertical; min-height: 140px; }
+  .contact-info { display: flex; flex-direction: column; gap: 32px; }
+  .contact-item { display: flex; gap: 16px; align-items: flex-start; }
+  .contact-item-icon { width: 40px; height: 40px; border: 1px solid rgba(245,166,35,0.3); display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .contact-item-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; margin-bottom: 4px; }
+  .contact-item-value { font-size: 15px; color: var(--text-dark); }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--dark); padding: 80px 48px 64px; border-bottom: 1px solid var(--gold-dim); }
+  .page-header .section-title { color: var(--white); }
+
+  /* FOOTER */
+  footer { background: var(--dark); padding: 48px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--gold-dim); }
+  .footer-logo { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--white); letter-spacing: 2px; }
+  .footer-copy { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); letter-spacing: 1px; }
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gray); text-decoration: none; letter-spacing: 1px; transition: color 0.2s; cursor: pointer; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .hero, .section { padding: 60px 20px; }
+    .blocks-grid { grid-template-columns: 1fr; }
+    .why-grid, .contact-grid, .about-hero { grid-template-columns: 1fr; }
+    .pricing-grid { grid-template-columns: 1fr; }
+    .hero-stats { gap: 24px; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .page-header, .mantix-hero { padding: 48px 20px; }
+    .services-block { padding: 0 20px 60px; }
+    .service-item { padding: 32px 20px; }
+    .service-item-body { grid-template-columns: 1fr; }
+    .demo-body { grid-template-columns: 1fr; }
+    .demo-cta { flex-direction: column; }
+    .block-divider { margin: 0 20px; }
+    .services-block-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-content > * { animation: fadeUp 0.6s ease forwards; opacity: 0; }
+  .hero-eyebrow { animation-delay: 0.1s; }
+  .hero-title    { animation-delay: 0.2s; }
+  .hero-subtitle { animation-delay: 0.3s; }
+  .hero-actions  { animation-delay: 0.4s; }
+  .hero-stats    { animation-delay: 0.5s; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" onclick="showPage('inicio')">
+    <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAIAAgADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAEDAgUEBgcICf/EAFQQAAEDAgMDBggKBggDBwUAAAEAAgMEEQUGEiExQQcTUWFxkQgiMjNSgaGxFCM0QmOSssHR4RVTVFVicwkWJHKCk9LwNUPxF0RWdIOioxgls8PT/8QAGgEBAQADAQEAAAAAAAAAAAAAAAECAwQFBv/EADcRAQABAwIFAwIDBgYDAQAAAAABAgMRBDEFEiFBUSJhcTLwE5HRFBVSgcHhQ1OSodLiQmJysf/aAAwDAQACEQMRAD8A+MkREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQEREBERAREQERemYLyK5txPJL81slw+KlNI6rggMrnTSsA1bA1pAJANrm97DYubU6uxpYib1UU5nEZ8ttqxcvTMW4zh5miKxkMrxdkbyOkBdLUrRc6HCMRlGplLIW9Nrq0YJV/PfBH1PlDT7VjzR5XEtYttlbLmN5oxJ2HYBh8tfVNjMro2ECzAQC4kkAC5A9YUDBiPLrKdvY8H3FexeCXQMpeUbEJG1ccxOESDS0HZ8dDtXFxLV1aTSXL1EZmmM+zp0diL9+m3VtMvHc0ZdxrLGJjDcew+WhqzGJRHIQbsNwCCCQRcEeorVL3fwtKBlVyjYfI6rjhIwiMaXA7fjptq8dODE+RWU7u1wHvKcN1dWr0lu9XGJqjPsayxFi/Vbp2iWqRbM4JV/Mkp39TZQ4+xVTYTiMQ1PpZA3pIsF280eXNiXBRWPhlYLvjeB0kKtZIIvS8Z5Fs3YZkhma5JMPkphSCrmgErhNCwgGxBaASAdoB6d680XPptXY1UTNmqKoicTjy23bFyzMRcjGRERdDUIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIiICIiAiIgIivpKSoqnhsMbnX422IKFkxj3mzGlx6ALrcRYZSU+2rn514/5cRuPW7d7+xcgVIibppYY4AOIF3d/A9llIzO0HSN2ugwesewSSNbBGdodI4C/ZfevrfwaMRjreS+HDHTsqH4bPJTONjtaTrbv4WeR/hXyk975HF73Oc47yTclc3DMZxfDIZ4MNxStooqi3PMp53RiS27UAdu8ry+NcIniem/C5sTExMT9+zu4dro0d7nxmMYc/N+HUuXs2YrhFPRQ2o6uSJj3OLjpDjbdbhbYbrVmuqvmSc3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" alt="OP Engineering" style="width:40px;height:40px;border-radius:50%;object-fit:cover;">
+    <span class="nav-logo-text">ENGINEERING</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('inicio')" id="nav-inicio" class="active">Inicio</a></li>
+    <li><a onclick="showPage('servicios')" id="nav-servicios">Servicios</a></li>
+    <li><a onclick="showPage('mantix')" id="nav-mantix">MANTIX</a></li>
+    <li><a onclick="showPage('nosotros')" id="nav-nosotros">Nosotros</a></li>
+    <li><a onclick="showPage('blog')" id="nav-blog">Blog</a></li>
+    <li><a onclick="showPage('contacto')" id="nav-contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- INICIO                                     -->
+<!-- ══════════════════════════════════════════ -->
+<div id="page-inicio" class="page active">
+  <section class="hero">
+    <div class="hero-grid"></div>
+    <svg class="hero-geo" viewBox="0 0 400 400" fill="none">
+      <circle cx="200" cy="200" r="190" stroke="#F5A623" stroke-width="1"/>
+      <circle cx="200" cy="200" r="150" stroke="#F5A623" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="110" stroke="#F5A623" stroke-width="0.5"/>
+      <circle cx="200" cy="200" r="70"  stroke="#F5A623" stroke-width="1"/>
+      <line x1="200" y1="10"  x2="200" y2="390" stroke="#F5A623" stroke-width="0.5"/>
+      <line x1="10"  y1="200" x2="390" y2="200" stroke="#F5A623" stroke-width="0.5"/>
+      <line x1="55"  y1="55"  x2="345" y2="345" stroke="#F5A623" stroke-width="0.5"/>
+      <line x1="345" y1="55"  x2="55"  y2="345" stroke="#F5A623" stroke-width="0.5"/>
+    </svg>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Tenerife · Disponibilidad global</p>
+      <h1 class="hero-title">Ingeniería que <em>resuelve</em> de verdad</h1>
+      <p class="hero-subtitle">25 años de experiencia industrial y marítima aplicada a consultoría, ingeniería técnica y tecnología propia. Desde el problema hasta la solución.</p>
+      <div class="hero-actions">
+        <a class="btn-primary" onclick="showPage('contacto')">Hablamos</a>
+        <a class="btn-secondary" onclick="showPage('servicios')">Ver servicios</a>
+      </div>
+      <div class="hero-stats">
+        <div><span class="hero-stat-num">25+</span><span class="hero-stat-label">Años de experiencia</span></div>
+        <div><span class="hero-stat-num">3</span><span class="hero-stat-label">Bloques de servicio</span></div>
+        <div><span class="hero-stat-num">6</span><span class="hero-stat-label">Áreas de especialización</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 bloques home -->
+  <section class="section section-dark">
+    <p class="section-label">Lo que hacemos</p>
+    <h2 class="section-title" style="color:var(--white); margin-bottom:16px">Tres bloques. Una empresa.</h2>
+    <p style="color:var(--gray); font-size:16px; line-height:1.7; max-width:560px; margin-bottom:64px;">Cada área nace de experiencia real en campo, no de teoría en despacho.</p>
+    <div class="blocks-grid">
+      <div class="block-card" onclick="showPage('servicios')">
+        <p class="block-card-label">Bloque 01</p>
+        <h3 class="block-card-title">Consultoría</h3>
+        <div class="block-card-services">
+          <span class="block-card-service">Auditoría y Consultoría Empresarial</span>
+          <span class="block-card-service">Asesoría y Compras Técnicas</span>
+        </div>
+        <span class="block-arrow">Ver servicios →</span>
+      </div>
+      <div class="block-card" onclick="showPage('servicios')">
+        <p class="block-card-label">Bloque 02</p>
+        <h3 class="block-card-title">Ingeniería</h3>
+        <div class="block-card-services">
+          <span class="block-card-service">Ingeniería Aplicada Industrial y Marítima</span>
+          <span class="block-card-service">Submarinos Turísticos</span>
+        </div>
+        <span class="block-arrow">Ver servicios →</span>
+      </div>
+      <div class="block-card" onclick="showPage('servicios')">
+        <p class="block-card-label">Bloque 03</p>
+        <h3 class="block-card-title">Tecnología</h3>
+        <div class="block-card-services">
+          <span class="block-card-service">Software Industrial (MANTIX · LIFEVEST)</span>
+          <span class="block-card-service">Desarrollo de Software a Medida</span>
+        </div>
+        <span class="block-arrow">Ver servicios →</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Por qué OP -->
+  <section class="section section-light">
+    <div class="why-grid">
+      <div>
+        <p class="section-label">Por qué nosotros</p>
+        <h2 class="section-title">Décadas resolviendo problemas reales.<br><span style="font-style:italic;color:var(--gold)">Ingeniería aplicada, no teórica.</span></h2>
+        <div class="why-points">
+          <div class="why-point">
+            <span class="why-point-num">01</span>
+            <div>
+              <h4 class="why-point-title">Experiencia real, no teoría</h4>
+              <p class="why-point-text">Décadas gestionando operaciones exigentes en entornos industriales, de infraestructuras y marítimos de alta exigencia. Conocemos los problemas desde dentro y sabemos cómo resolverlos.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <span class="why-point-num">02</span>
+            <div>
+              <h4 class="why-point-title">Soluciones a medida</h4>
+              <p class="why-point-text">No vendemos un método genérico. Cada empresa tiene sus propios puntos débiles y su propio potencial de mejora.</p>
+            </div>
+          </div>
+          <div class="why-point">
+            <span class="why-point-num">03</span>
+            <div>
+              <h4 class="why-point-title">Base local, alcance global</h4>
+              <p class="why-point-text">Con base en Tenerife y disponibilidad para trabajar en cualquier lugar. El software que desarrollamos no tiene fronteras.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual">
+        <p class="why-quote">"El mejor software de mantenimiento lo construye alguien que ha gestionado averías de verdad."</p>
+        <p class="why-quote-author">— OP Engineering · Tenerife</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section section-dark" style="text-align:center">
+    <p class="section-label" style="justify-content:center">¿Hablamos?</p>
+    <h2 class="section-title" style="color:var(--white); margin-bottom:16px">Tu empresa puede funcionar mejor</h2>
+    <p style="color:var(--gray); font-size:16px; margin-bottom:40px; max-width:480px; margin-left:auto; margin-right:auto;">Sin compromisos. Cuéntanos tu situación y te decimos si podemos ayudarte.</p>
+    <a class="btn-primary" onclick="showPage('contacto')">Contactar ahora</a>
+  </section>
+
+  <footer>
+    <span class="footer-logo">OP ENGINEERING</span>
+    <span class="footer-copy">© 2026 OP Engineering · Tenerife, Islas Canarias</span>
+    <div class="footer-links">
+      <a onclick="showPage('servicios')">Servicios</a>
+      <a onclick="showPage('mantix')">MANTIX</a>
+      <a onclick="showPage('nosotros')">Nosotros</a>
+      <a onclick="showPage('blog')">Blog</a>
+      <a onclick="showPage('contacto')">Contacto</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- SERVICIOS                                  -->
+<!-- ══════════════════════════════════════════ -->
+<div id="page-servicios" class="page">
+  <div class="page-header">
+    <p class="section-label">OP Soluciones</p>
+    <h1 class="section-title">Nuestros servicios</h1>
+    <p style="color:var(--gray); font-size:16px; margin-top:12px; max-width:560px;">Seis especialidades organizadas en tres bloques. Experiencia real aplicada a cada proyecto.</p>
+
+    <!-- Anclas de navegación -->
+    <div style="display:flex; gap:12px; margin-top:40px; flex-wrap:wrap;">
+      <a href="#" onclick="document.getElementById('bloque-consultoria').scrollIntoView({behavior:'smooth'}); return false;" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; border:1px solid var(--gold-dim); padding:10px 20px; border-radius:2px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(245,166,35,0.1)'" onmouseout="this.style.background='transparent'">01 · Consultoría</a>
+      <a href="#" onclick="document.getElementById('bloque-ingenieria').scrollIntoView({behavior:'smooth'}); return false;" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; border:1px solid var(--gold-dim); padding:10px 20px; border-radius:2px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(245,166,35,0.1)'" onmouseout="this.style.background='transparent'">02 · Ingeniería</a>
+      <a href="#" onclick="document.getElementById('bloque-tecnologia').scrollIntoView({behavior:'smooth'}); return false;" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; border:1px solid var(--gold-dim); padding:10px 20px; border-radius:2px; text-decoration:none; transition:all 0.2s;" onmouseover="this.style.background='rgba(245,166,35,0.1)'" onmouseout="this.style.background='transparent'">03 · Tecnología</a>
+      <a href="https://mantix-three.vercel.app" target="_blank" rel="noopener" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--dark); text-transform:uppercase; background:var(--gold); padding:10px 20px; border-radius:2px; text-decoration:none; font-weight:500;">Probar MANTIX →</a>
+    </div>
+  </div>
+
+
+  <!-- BLOQUE 01 — CONSULTORÍA -->
+  <div class="services-block" id="bloque-consultoria">
+    <div class="services-block-header">
+      <div class="services-block-num">01</div>
+      <div>
+        <p class="section-label" style="margin-bottom:8px">Bloque 01</p>
+        <h2 class="services-block-title">Consultoría</h2>
+        <p class="services-block-desc">Ayudamos a empresas a entender dónde están, dónde pueden estar y cómo llegar. Desde el diagnóstico hasta el equipamiento.</p>
+      </div>
+    </div>
+    <div class="services-list">
+      <div class="service-item">
+        <div class="service-item-header">
+          <div>
+            <p class="service-item-label">01 · Consultoría</p>
+            <h3 class="service-item-title" style="white-space:nowrap">Auditoría y Consultoría Empresarial</h3>
+          </div>
+        </div>
+        <div class="service-item-body">
+          <div>
+            <p class="service-item-text">Analizamos tu empresa en profundidad — procesos, operaciones, organización y costes. Te entregamos un diagnóstico claro y un plan de mejora con acciones priorizadas e impacto esperado.</p>
+            <p class="service-item-text" style="margin-top:12px;">No es un informe genérico. Es un plan construido desde la experiencia real gestionando operaciones exigentes en múltiples sectores.</p>
+          </div>
+          <ul class="service-item-includes">
+            <li>Análisis de procesos y operaciones</li>
+            <li>Identificación de ineficiencias y pérdidas</li>
+            <li>Informe de situación con KPIs</li>
+            <li>Plan de mejora con hoja de ruta</li>
+            <li>Seguimiento de implementación</li>
+          </ul>
+        </div>
+        <div class="service-item-cta"><a class="btn-primary" onclick="showPage('contacto')">Pedir presupuesto</a></div>
+      </div>
+      <div class="service-item">
+        <div class="service-item-header">
+          <div>
+            <p class="service-item-label">02 · Asesoría</p>
+            <h3 class="service-item-title">Asesoría y Compras Técnicas</h3>
+          </div>
+        </div>
+        <div class="service-item-body">
+          <div>
+            <p class="service-item-text">Elegir el equipamiento adecuado es una decisión crítica. Un error en la selección puede costar tiempo y dinero durante años. Te ayudamos a tomar esa decisión con criterio técnico real.</p>
+            <p class="service-item-text" style="margin-top:12px;">Tanto si ya sabes lo que necesitas como si partes de cero, te acompañamos desde la definición de requisitos hasta la recepción del equipo.</p>
+          </div>
+          <ul class="service-item-includes">
+            <li>Definición de requisitos técnicos</li>
+            <li>Búsqueda y evaluación de proveedores</li>
+            <li>Análisis comparativo técnico-económico</li>
+            <li>Gestión del proceso de compra</li>
+            <li>Supervisión de recepción e instalación</li>
+          </ul>
+        </div>
+        <div class="service-item-cta"><a class="btn-primary" onclick="showPage('contacto')">Pedir información</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-divider"></div>
+
+  <!-- BLOQUE 02 — INGENIERÍA -->
+  <div class="services-block" id="bloque-ingenieria">
+    <div class="services-block-header">
+      <div class="services-block-num">02</div>
+      <div>
+        <p class="section-label" style="margin-bottom:8px">Bloque 02</p>
+        <h2 class="services-block-title">Ingeniería</h2>
+        <p class="services-block-desc">Ingeniería técnica aplicada en entornos industriales y marítimos de alta exigencia. Incluyendo una especialización única a nivel mundial.</p>
+      </div>
+    </div>
+    <div class="services-list">
+      <div class="service-item">
+        <div class="service-item-header">
+          <div>
+            <p class="service-item-label">03 · Ingeniería</p>
+            <h3 class="service-item-title">Ingeniería Aplicada Industrial y Marítima</h3>
+          </div>
+        </div>
+        <div class="service-item-body">
+          <div>
+            <p class="service-item-text">Servicio de ingeniería aplicada externalizada para empresas que necesitan un jefe técnico de alto nivel sin tenerlo en plantilla. Gestión de mantenimiento preventivo y correctivo, coordinación de inspecciones y proyectos de mejora.</p>
+            <p class="service-item-text" style="margin-top:12px;">Experiencia directa con entidades clasificadoras internacionales (DNV, Bureau Veritas Marina) e implantación de sistemas ISO 9001/14001.</p>
+          </div>
+          <ul class="service-item-includes">
+            <li>Planes de mantenimiento preventivo y correctivo</li>
+            <li>Coordinación con entidades clasificadoras</li>
+            <li>Documentación técnica y procedimientos</li>
+            <li>Gestión de equipos y proveedores</li>
+            <li>Implantación ISO 9001 / 14001</li>
+          </ul>
+        </div>
+        <div class="service-item-cta"><a class="btn-primary" onclick="showPage('contacto')">Contactar</a></div>
+      </div>
+      <div class="service-item">
+        <div class="service-item-header">
+          <div>
+            <p class="service-item-label">04 · Especialización</p>
+            <h3 class="service-item-title" style="white-space:nowrap">Ingeniería y Mantenimiento de Submarinos Turísticos</h3>
+          </div>
+        </div>
+        <div class="service-item-body">
+          <div>
+            <p class="service-item-text">Un nicho técnico único a nivel mundial. Más de una década de experiencia en mantenimiento integral de submarinos de pasajeros en operación activa — electricidad, hidráulica y neumática en el entorno más exigente que existe.</p>
+            <p class="service-item-text" style="margin-top:12px;">Especialización en modelos <strong>Mark</strong> y <strong>T-sub</strong>, con experiencia en coordinación con entidades clasificadoras internacionales y autoridades marítimas.</p>
+          </div>
+          <ul class="service-item-includes">
+            <li>Mantenimiento integral Mark y T-sub</li>
+            <li>Coordinación DNV · Bureau Veritas</li>
+            <li>Planificación y gestión de dique seco</li>
+            <li>Protocolos de seguridad y documentación</li>
+            <li>Formación de pilotos de submarino</li>
+            <li>Formación de técnicos de mantenimiento</li>
+          </ul>
+        </div>
+        <div class="service-item-cta"><a class="btn-primary" onclick="showPage('contacto')">Contactar</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="block-divider"></div>
+
+  <!-- BLOQUE 03 — TECNOLOGÍA -->
+  <div class="services-block" id="bloque-tecnologia">
+    <div class="services-block-header">
+      <div class="services-block-num">03</div>
+      <div>
+        <p class="section-label" style="margin-bottom:8px">Bloque 03</p>
+        <h2 class="services-block-title">Tecnología</h2>
+        <p class="services-block-desc">Software construido por ingenieros que han estado en el taller. Productos propios y desarrollo a medida para cualquier empresa con una necesidad digital.</p>
+      </div>
+    </div>
+    <div class="services-list">
+      <div class="service-item">
+        <div class="service-item-header">
+          <div>
+            <p class="service-item-label">05 · Software</p>
+            <h3 class="service-item-title">Software Industrial Propio</h3>
+          </div>
+        </div>
+        <div class="service-item-body">
+          <div>
+            <p class="service-item-text">Desarrollamos nuestras propias soluciones SaaS para digitalizar la gestión técnica. Software que nace de la experiencia real en operaciones industriales y marítimas, no de requisitos escritos en un despacho.</p>
+          </div>
+          <ul class="service-item-includes">
+            <li>MANTIX — CMMS para industria y mantenimiento</li>
+            <li>LIFEVEST — gestión PCI y seguridad marítima</li>
+            <li>Implementación, formación y soporte</li>
+          </ul>
+        </div>
+        <div class="service-item-cta"><a class="btn-primary" onclick="showPage('mantix')">Ver MANTIX</a></div>
+      </div>
+      <div class="service-item">
+        <div class="service-item-header">
+          <div>
+            <p class="service-item-label">06 · Desarrollo</p>
+            <h3 class="service-item-title">Desarrollo de Software a Medida</h3>
+          </div>
+        </div>
+        <div class="service-item-body">
+          <div>
+            <p class="service-item-text">Cada empresa tiene procesos y necesidades propias que ningún software estándar cubre al 100%. Desarrollamos soluciones digitales a medida — apps web, herramientas de gestión, automatización de procesos internos y reporting — adaptadas exactamente a cómo trabaja tu empresa.</p>
+            <p class="service-item-text" style="margin-top:12px;">Para cualquier empresa con una necesidad digital que no encuentre solución en el mercado.</p>
+          </div>
+          <ul class="service-item-includes">
+            <li>Apps web y móvil a medida</li>
+            <li>Automatización de procesos internos</li>
+            <li>Herramientas de gestión y reporting</li>
+            <li>Integraciones con sistemas existentes</li>
+            <li>Mantenimiento y evolución continua</li>
+          </ul>
+        </div>
+        <div class="service-item-cta"><a class="btn-primary" onclick="showPage('contacto')">Pedir información</a></div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">OP ENGINEERING</span>
+    <span class="footer-copy">© 2026 OP Engineering · Tenerife, Islas Canarias</span>
+    <div class="footer-links">
+      <a onclick="showPage('inicio')">Inicio</a>
+      <a onclick="showPage('mantix')">MANTIX</a>
+      <a onclick="showPage('contacto')">Contacto</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- MANTIX                                     -->
+<!-- ══════════════════════════════════════════ -->
+<div id="page-mantix" class="page">
+  <div class="mantix-hero">
+    <p class="section-label" style="justify-content:center">Software Industrial</p>
+    <h1 class="section-title" style="color:var(--white); margin-bottom:16px">MANTIX</h1>
+    <p style="color:var(--gray); font-size:17px; line-height:1.7; max-width:560px; margin:0 auto 48px;">El CMMS diseñado desde la experiencia real de taller. Gestión de equipos, órdenes de trabajo, calibraciones e informes — sin complicaciones.</p>
+    <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+      <a class="btn-primary" onclick="showPage('contacto')">Solicitar demo</a>
+      <a class="btn-secondary" href="https://mantix-three.vercel.app" target="_blank" rel="noopener">Abrir app →</a>
+    </div>
+  </div>
+
+  <section class="section section-dark">
+    <p class="section-label" style="justify-content:center">Planes</p>
+    <h2 class="section-title" style="color:var(--white); text-align:center; margin-bottom:48px">Simple y transparente</h2>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <p class="pricing-name">Básico</p>
+        <p class="pricing-price">32€</p>
+        <p class="pricing-period">/mes</p>
+        <ul class="pricing-features">
+          <li>Hasta 25 equipos</li>
+          <li>Órdenes de trabajo</li>
+          <li>Calendario de mantenimiento</li>
+          <li>1 usuario</li>
+        </ul>
+        <a class="btn-secondary" onclick="showPage('contacto')">Empezar</a>
+      </div>
+      <div class="pricing-card featured">
+        <span class="pricing-badge">Más popular</span>
+        <p class="pricing-name">Pro</p>
+        <p class="pricing-price">59€</p>
+        <p class="pricing-period">/mes</p>
+        <ul class="pricing-features">
+          <li>Hasta 200 equipos</li>
+          <li>Órdenes de trabajo ilimitadas</li>
+          <li>Informes y costes por equipo</li>
+          <li>Calibraciones y alertas</li>
+          <li>3 usuarios</li>
+        </ul>
+        <a class="btn-primary" onclick="showPage('contacto')">Empezar</a>
+      </div>
+      <div class="pricing-card">
+        <p class="pricing-name">Completo</p>
+        <p class="pricing-price">99€</p>
+        <p class="pricing-period">/mes</p>
+        <ul class="pricing-features">
+          <li>Equipos ilimitados</li>
+          <li>Todo lo de Pro</li>
+          <li>Usuarios ilimitados</li>
+          <li>Soporte prioritario</li>
+          <li>Personalización</li>
+        </ul>
+        <a class="btn-secondary" onclick="showPage('contacto')">Empezar</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="mantix-demo">
+    <p class="section-label" style="justify-content:center">Demo en vivo</p>
+    <h2 class="section-title" style="margin-bottom:8px">Explóralo ahora mismo</h2>
+    <p style="color:var(--text-mid); font-size:15px;">App real con datos de ejemplo — sin registro, sin instalación.</p>
+    <div class="demo-preview">
+      <div class="demo-bar">
+        <div class="demo-dot" style="background:#ff5f57"></div>
+        <div class="demo-dot" style="background:#febc2e"></div>
+        <div class="demo-dot" style="background:#28c840"></div>
+        <div class="demo-url">mantix-three.vercel.app</div>
+      </div>
+      <div class="demo-body">
+        <div class="demo-stat">
+          <p class="demo-stat-label">Equipos activos</p>
+          <p class="demo-stat-val">100</p>
+          <p class="demo-stat-sub">↑ 5 esta semana</p>
+        </div>
+        <div class="demo-stat">
+          <p class="demo-stat-label">OTs abiertas</p>
+          <p class="demo-stat-val">12</p>
+          <p class="demo-stat-sub">3 urgentes</p>
+        </div>
+        <div class="demo-stat">
+          <p class="demo-stat-label">Calibraciones próximas</p>
+          <p class="demo-stat-val">7</p>
+          <p class="demo-stat-sub">próximos 30 días</p>
+        </div>
+      </div>
+      <div class="demo-cta">
+        <span class="demo-cta-text">App completa con 100 equipos de ejemplo, OTs, informes y más</span>
+        <a class="btn-primary" href="https://mantix-three.vercel.app" target="_blank" rel="noopener">Abrir MANTIX →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">OP ENGINEERING</span>
+    <span class="footer-copy">© 2026 OP Engineering · Tenerife, Islas Canarias</span>
+    <div class="footer-links">
+      <a onclick="showPage('inicio')">Inicio</a>
+      <a onclick="showPage('servicios')">Servicios</a>
+      <a onclick="showPage('contacto')">Contacto</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- NOSOTROS                                   -->
+<!-- ══════════════════════════════════════════ -->
+<div id="page-nosotros" class="page">
+  <div class="about-hero">
+    <div>
+      <p class="section-label">Quiénes somos</p>
+      <h1 class="section-title" style="color:var(--white)">Ingeniería con historia detrás</h1>
+      <p style="color:var(--gray); font-size:16px; line-height:1.8; margin-top:20px;">OP Engineering es una empresa de ingeniería, consultoría y tecnología industrial fundada en Tenerife, con capacidad de trabajo global.</p>
+      <p style="color:var(--gray); font-size:16px; line-height:1.8; margin-top:16px;">Nace de más de 25 años de experiencia real en entornos industriales, de infraestructuras y operaciones marítimas de alta exigencia. Una trayectoria que abarca desde la automoción internacional hasta la ingeniería submarina, pasando por la gestión de infraestructuras críticas.</p>
+      <p style="color:var(--gray); font-size:16px; line-height:1.8; margin-top:16px;">Esa experiencia acumulada es hoy el activo más valioso que ponemos al servicio de nuestros clientes.</p>
+      <div style="margin-top:40px; display:flex; gap:40px; flex-wrap:wrap;">
+        <div>
+          <span style="font-family:'DM Serif Display',serif; font-size:40px; color:var(--gold);">25+</span>
+          <p style="font-family:'DM Mono',monospace; font-size:11px; color:var(--gray); letter-spacing:1px; margin-top:4px;">Años de experiencia</p>
+        </div>
+        <div>
+          <span style="font-family:'DM Serif Display',serif; font-size:40px; color:var(--gold);">3</span>
+          <p style="font-family:'DM Mono',monospace; font-size:11px; color:var(--gray); letter-spacing:1px; margin-top:4px;">Sectores industriales</p>
+        </div>
+        <div>
+          <span style="font-family:'DM Serif Display',serif; font-size:40px; color:var(--gold);">2</span>
+          <p style="font-family:'DM Mono',monospace; font-size:11px; color:var(--gray); letter-spacing:1px; margin-top:4px;">Productos SaaS propios</p>
+        </div>
+      </div>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot">I</div>
+        <div>
+          <p class="timeline-year">Etapa I</p>
+          <p class="timeline-title">Donde todo empieza: diseño, precisión y estándares internacionales</p>
+          <p class="timeline-text">Desarrollo técnico en entornos de alta exigencia donde la precisión no es opcional. Metodologías propias adoptadas a escala internacional. El origen de una forma de trabajar.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">II</div>
+        <div>
+          <p class="timeline-year">Etapa II</p>
+          <p class="timeline-title">Gestión de lo crítico: infraestructuras, equipos y operaciones que no pueden fallar</p>
+          <p class="timeline-text">Dirección técnica de sistemas e infraestructuras críticas en operación continua. Gestión de equipos, proveedores y estándares de calidad internacionales en entornos donde el fallo no es una opción.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">III</div>
+        <div>
+          <p class="timeline-year">Etapa III</p>
+          <p class="timeline-title">El entorno más exigente: ingeniería en condiciones límite</p>
+          <p class="timeline-text">Operaciones en el medio más hostil para la tecnología. Electricidad, hidráulica y neumática bajo presión, con vidas humanas a bordo y entidades clasificadoras internacionales supervisando cada detalle.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot">OP</div>
+        <div>
+          <p class="timeline-year">Hoy — OP Engineering</p>
+          <p class="timeline-title">Todo ese conocimiento, al servicio de tu empresa</p>
+          <p class="timeline-text">Tres décadas de experiencia acumulada convertidas en consultoría, ingeniería aplicada y tecnología propia. Desde Tenerife, con alcance global.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="section section-light" style="text-align:center">
+    <p class="section-label" style="justify-content:center">¿Trabajamos juntos?</p>
+    <h2 class="section-title" style="margin-bottom:16px">Cuéntanos tu proyecto</h2>
+    <p style="color:var(--text-mid); font-size:16px; margin-bottom:40px; max-width:480px; margin-left:auto; margin-right:auto;">Sin compromisos. Una conversación para ver si encajamos.</p>
+    <a class="btn-primary" onclick="showPage('contacto')">Contactar</a>
+  </section>
+
+  <footer>
+    <span class="footer-logo">OP ENGINEERING</span>
+    <span class="footer-copy">© 2026 OP Engineering · Tenerife, Islas Canarias</span>
+    <div class="footer-links">
+      <a onclick="showPage('inicio')">Inicio</a>
+      <a onclick="showPage('servicios')">Servicios</a>
+      <a onclick="showPage('mantix')">MANTIX</a>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════════════════════════════════════ -->
+<!-- CONTACTO                                   -->
+<!-- ══════════════════════════════════════════ -->
+<div id="page-contacto" class="page">
+  <div class="page-header">
+    <p class="section-label">Hablemos</p>
+    <h1 class="section-title">Contacto</h1>
+    <p style="color:var(--gray); font-size:16px; margin-top:12px;">Sin formularios interminables. Cuéntanos qué necesitas.</p>
+  </div>
+
+  <section class="section section-light">
+    <div class="contact-grid">
+      <div class="contact-form">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="tu@empresa.com">
+        </div>
+        <div class="form-group">
+          <label>Empresa</label>
+          <input type="text" placeholder="Nombre de tu empresa">
+        </div>
+        <div class="form-group">
+          <label>¿En qué podemos ayudarte?</label>
+          <select>
+            <option value="">Selecciona un área</option>
+            <optgroup label="Consultoría">
+              <option>Auditoría y Consultoría Empresarial</option>
+              <option>Asesoría y Compras Técnicas</option>
+            </optgroup>
+            <optgroup label="Ingeniería">
+              <option>Ingeniería Aplicada Industrial y Marítima</option>
+              <option>Submarinos Turísticos</option>
+            </optgroup>
+            <optgroup label="Tecnología">
+              <option>MANTIX — Software Industrial</option>
+              <option>Desarrollo de Software a Medida</option>
+            </optgroup>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea placeholder="Cuéntanos tu situación..."></textarea>
+        </div>
+        <button class="btn-primary" onclick="handleSubmit()">Enviar mensaje</button>
+      </div>
+
+      <div class="contact-info">
+        <div>
+          <p class="section-label">Datos de contacto</p>
+          <h2 class="section-title" style="font-size:28px; margin-bottom:32px">Estamos en Tenerife,<br>disponibles en cualquier lugar.</h2>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">✉</div>
+          <div>
+            <p class="contact-item-label">Email</p>
+            <p class="contact-item-value">info@op-soluciones.com</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <p class="contact-item-label">Ubicación</p>
+            <p class="contact-item-value">Tenerife, Islas Canarias, España</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🔗</div>
+          <div>
+            <p class="contact-item-label">LinkedIn</p>
+            <p class="contact-item-value">OP Engineering</p>
+          </div>
+        </div>
+        <div style="margin-top:8px; padding:24px; background:var(--dark); border-left:3px solid var(--gold);">
+          <p style="font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:2px; margin-bottom:8px;">RESPUESTA EN 24H</p>
+          <p style="font-size:14px; color:var(--gray); line-height:1.6;">Respondemos todos los mensajes en menos de 24 horas en días laborables.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="footer-logo">OP ENGINEERING</span>
+    <span class="footer-copy">© 2026 OP Engineering · Tenerife, Islas Canarias</span>
+    <div class="footer-links">
+      <a onclick="showPage('inicio')">Inicio</a>
+      <a onclick="showPage('servicios')">Servicios</a>
+      <a onclick="showPage('mantix')">MANTIX</a>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══════════════════════════════════════════ -->
+<!-- BLOG                                       -->
+<!-- ══════════════════════════════════════════ -->
+<div id="page-blog" class="page">
+  <div class="page-header">
+    <p class="section-label">OP Engineering</p>
+    <h1 class="section-title">Blog</h1>
+    <p style="color:var(--gray); font-size:16px; margin-top:12px; max-width:560px;">Reflexiones técnicas, experiencias de campo y opiniones sobre ingeniería, mantenimiento y tecnología industrial. Cada diez días.</p>
+  </div>
+
+  <section class="section section-light">
+
+    <!-- Grid artículos -->
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:2px; background:rgba(245,166,35,0.08); border:1px solid rgba(245,166,35,0.12);">
+
+      <!-- Artículo 1 -->
+      <article style="background:var(--white); padding:40px; cursor:pointer; border-bottom:2px solid transparent; transition:border-color 0.2s;" onmouseover="this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.borderBottomColor='transparent'" onclick="showArticle(1)">
+        <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:16px;">Mantenimiento · Abril 2026</p>
+        <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); line-height:1.3; margin-bottom:16px;">Por qué el mantenimiento preventivo sigue siendo la inversión más rentable que existe</h2>
+        <p style="font-size:14px; color:var(--text-mid); line-height:1.7; text-align:justify;">Después de décadas gestionando equipos industriales y marítimos, una conclusión se repite siempre: las empresas que invierten en mantenimiento preventivo gastan menos, producen más y duermen mejor. Y aun así, sigue siendo la primera partida que se recorta cuando aprieta el presupuesto.</p>
+        <p style="margin-top:20px; font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:2px;">Leer artículo →</p>
+      </article>
+
+      <!-- Artículo 2 -->
+      <article style="background:var(--white); padding:40px; cursor:pointer; border-bottom:2px solid transparent; transition:border-color 0.2s;" onmouseover="this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.borderBottomColor='transparent'" onclick="showArticle(2)">
+        <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:16px;">Ingeniería · Marzo 2026</p>
+        <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); line-height:1.3; margin-bottom:16px;">Lo que te enseña trabajar bajo el mar que no aprenderás en ningún manual</h2>
+        <p style="font-size:14px; color:var(--text-mid); line-height:1.7; text-align:justify;">El entorno submarino es el mejor maestro de ingeniería que existe. Cuando un sistema falla a 40 metros de profundidad con pasajeros a bordo, no hay margen para improvisar. Todo lo que sé sobre fiabilidad, documentación y trabajo en equipo lo aprendí ahí abajo.</p>
+        <p style="margin-top:20px; font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:2px;">Leer artículo →</p>
+      </article>
+
+      <!-- Artículo 3 -->
+      <article style="background:var(--white); padding:40px; cursor:pointer; border-bottom:2px solid transparent; transition:border-color 0.2s;" onmouseover="this.style.borderBottomColor='var(--gold)'" onmouseout="this.style.borderBottomColor='transparent'" onclick="showArticle(3)">
+        <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:16px;">Tecnología · Marzo 2026</p>
+        <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); line-height:1.3; margin-bottom:16px;">Por qué construimos nuestro propio software en lugar de usar lo que había en el mercado</h2>
+        <p style="font-size:14px; color:var(--text-mid); line-height:1.7; text-align:justify;">Probamos herramientas de gestión de mantenimiento durante años. Algunas eran buenas. Ninguna estaba pensada por alguien que hubiera gestionado una orden de trabajo real. Así nació MANTIX — no como un proyecto tecnológico, sino como una necesidad de campo.</p>
+        <p style="margin-top:20px; font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:2px;">Leer artículo →</p>
+      </article>
+
+    </div>
+
+    <!-- CTA suscripción -->
+    <div style="margin-top:64px; background:var(--dark); padding:48px; display:flex; align-items:center; justify-content:space-between; gap:32px; flex-wrap:wrap; border-left:3px solid var(--gold);">
+      <div>
+        <p style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:3px; color:var(--gold); text-transform:uppercase; margin-bottom:8px;">Cada diez días</p>
+        <h3 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--white); margin-bottom:8px;">Un artículo. Sin ruido.</h3>
+        <p style="font-size:14px; color:var(--gray); line-height:1.6;">Ingeniería, mantenimiento y tecnología industrial desde dentro del sector.</p>
+      </div>
+      <a onclick="showPage('contacto')" style="font-family:'DM Mono',monospace; font-size:12px; letter-spacing:2px; background:var(--gold); color:var(--dark); padding:14px 32px; border-radius:2px; cursor:pointer; text-decoration:none; font-weight:500; white-space:nowrap;">Contactar</a>
+    </div>
+  </section>
+
+  <!-- Vista artículo individual (oculto por defecto) -->
+  <div id="article-view" style="display:none; background:var(--white);">
+    <div style="max-width:760px; margin:0 auto; padding:80px 48px;">
+      <p onclick="closeArticle()" style="font-family:'DM Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--gold); cursor:pointer; margin-bottom:40px;">← Volver al blog</p>
+      <div id="article-content"></div>
+    </div>
+  </div>
+
+  <footer>
+    <span class="footer-logo">OP ENGINEERING</span>
+    <span class="footer-copy">© 2026 OP Engineering · Tenerife, Islas Canarias</span>
+    <div class="footer-links">
+      <a onclick="showPage('inicio')">Inicio</a>
+      <a onclick="showPage('servicios')">Servicios</a>
+      <a onclick="showPage('mantix')">MANTIX</a>
+      <a onclick="showPage('contacto')">Contacto</a>
+    </div>
+  </footer>
+</div>
+
+<script>
+
+var articles = {
+  1: {
+    categoria: "Mantenimiento · Abril 2026",
+    titulo: "Por qué el mantenimiento preventivo sigue siendo la inversión más rentable que existe",
+    contenido: `
+      <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">Mantenimiento · Abril 2026</p>
+      <h1 style="font-family:'DM Serif Display',serif; font-size:36px; color:var(--text-dark); line-height:1.2; margin-bottom:32px;">Por qué el mantenimiento preventivo sigue siendo la inversión más rentable que existe</h1>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Después de décadas gestionando equipos industriales y marítimos, una conclusión se repite siempre: las empresas que invierten en mantenimiento preventivo gastan menos, producen más y duermen mejor. Y aun así, sigue siendo la primera partida que se recorta cuando aprieta el presupuesto.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">El razonamiento del recorte es siempre el mismo: "si la máquina funciona, ¿para qué tocarla?" Es una lógica que parece sensata hasta que la máquina se para en el peor momento posible — y siempre lo hace en el peor momento posible.</p>
+      <blockquote style="border-left:3px solid var(--gold); padding:24px 32px; margin:40px 0; background:var(--light-bg);">
+        <p style="font-family:'DM Serif Display',serif; font-size:22px; color:var(--text-dark); line-height:1.5; font-style:italic;">"Compra como un rico, mantén como un pobre."</p>
+        <p style="font-family:'DM Mono',monospace; font-size:11px; color:var(--gold); letter-spacing:2px; margin-top:12px;">— Sabiduría de taller</p>
+      </blockquote>
+      <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); margin:40px 0 16px;">El coste real de una avería</h2>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Una avería no son solo las horas de reparación y el coste de las piezas. Son las horas de producción perdidas, los compromisos incumplidos con clientes, la presión sobre el equipo técnico, la reputación de la empresa. Todo eso tiene un coste que raramente aparece en el parte de avería pero que cualquier director de operaciones conoce bien.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">En entornos marítimos, donde he pasado buena parte de mi carrera, el coste de una avería se multiplica. Un equipo fuera de servicio puede significar cancelar excursiones, decepcionar a cientos de pasajeros y enfrentarse a penalizaciones contractuales. El mantenimiento preventivo deja de ser un gasto y se convierte en el seguro más barato que existe.</p>
+      <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); margin:40px 0 16px;">La mentalidad que marca la diferencia</h2>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Las empresas que mejor gestionan el mantenimiento no son necesariamente las que tienen más presupuesto. Son las que han interiorizado que mantener es más barato que reparar, y que documentar es más barato que recordar. Esa mentalidad, una vez instalada en el equipo, cambia completamente la forma de trabajar.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Si tienes dudas sobre el estado de tu plan de mantenimiento actual, o simplemente quieres saber si hay margen de mejora, estamos aquí para ayudarte.</p>
+    `
+  },
+  2: {
+    categoria: "Ingeniería · Marzo 2026",
+    titulo: "Lo que te enseña trabajar bajo el mar que no aprenderás en ningún manual",
+    contenido: `
+      <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">Ingeniería · Marzo 2026</p>
+      <h1 style="font-family:'DM Serif Display',serif; font-size:36px; color:var(--text-dark); line-height:1.2; margin-bottom:32px;">Lo que te enseña trabajar bajo el mar que no aprenderás en ningún manual</h1>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">El entorno submarino es el mejor maestro de ingeniería que existe. Cuando un sistema falla a 40 metros de profundidad con pasajeros a bordo, no hay margen para improvisar. Todo lo que sé sobre fiabilidad, documentación y trabajo en equipo lo aprendí ahí abajo.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Los manuales de ingeniería explican cómo funcionan los sistemas en condiciones ideales. El mar te enseña cómo fallan en condiciones reales — con presión, humedad, vibración y sal atacando cada componente cada día. Esa diferencia entre la teoría y la práctica es donde se forja un ingeniero de verdad.</p>
+      <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); margin:40px 0 16px;">La regla de los tres sistemas</h2>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">En operaciones submarinas existe una regla no escrita: cualquier sistema crítico debe tener al menos tres niveles de respaldo. No dos, tres. Porque el mar no negocia y los pasajeros confían en que llegarán a la superficie. Ese nivel de exigencia, trasladado a la ingeniería industrial convencional, produce resultados extraordinarios.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">La redundancia no es un lujo — es una filosofía de diseño que debería aplicarse a cualquier operación donde el fallo tiene consecuencias reales. Y en casi todas las operaciones industriales, el fallo tiene consecuencias reales.</p>
+      <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); margin:40px 0 16px;">Documentar como si tu vida dependiera de ello</h2>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">En operaciones con entidades clasificadoras internacionales, la documentación no es opcional. Cada intervención, cada pieza sustituida, cada inspección queda registrada. Al principio parece burocracia. Con el tiempo entiendes que es la memoria colectiva del sistema — y que sin ella, cada técnico nuevo empieza desde cero.</p>
+    `
+  },
+  3: {
+    categoria: "Tecnología · Marzo 2026",
+    titulo: "Por qué construimos nuestro propio software en lugar de usar lo que había en el mercado",
+    contenido: `
+      <p style="font-family:'DM Mono',monospace; font-size:10px; letter-spacing:2px; color:var(--gold); text-transform:uppercase; margin-bottom:24px;">Tecnología · Marzo 2026</p>
+      <h1 style="font-family:'DM Serif Display',serif; font-size:36px; color:var(--text-dark); line-height:1.2; margin-bottom:32px;">Por qué construimos nuestro propio software en lugar de usar lo que había en el mercado</h1>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Probamos herramientas de gestión de mantenimiento durante años. Algunas eran buenas. Ninguna estaba pensada por alguien que hubiera gestionado una orden de trabajo real. Así nació MANTIX — no como un proyecto tecnológico, sino como una necesidad de campo.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">El problema con la mayoría del software de mantenimiento es que está diseñado por personas que nunca han tenido que abrir un equipo, diagnosticar una avería o justificar un presupuesto de repuestos ante dirección. El resultado son herramientas técnicamente correctas pero operativamente incómodas.</p>
+      <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); margin:40px 0 16px;">El momento en que decidimos construirlo</h2>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Recuerdo exactamente cuándo tomé la decisión. Estaba intentando registrar una intervención en una herramienta que supuestamente era "intuitiva" y tardé doce minutos en completar lo que debería haber llevado dos. En ese momento pensé: esto no lo ha diseñado nadie que haya trabajado en un taller.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">MANTIX nace de esa frustración convertida en solución. Cada pantalla, cada flujo, cada campo está pensado desde la experiencia real de alguien que ha gestionado cientos de equipos y miles de órdenes de trabajo. No es perfecto — ningún software lo es — pero es honesto.</p>
+      <h2 style="font-family:'DM Serif Display',serif; font-size:24px; color:var(--text-dark); margin:40px 0 16px;">Lo que aprendimos construyéndolo</h2>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Construir tu propio software te obliga a ser muy preciso sobre qué problema estás resolviendo. No puedes esconderte detrás de funcionalidades genéricas. Tienes que tomar decisiones: esto sí, esto no, esto así y no de otra manera. Ese proceso de decisión es en sí mismo valioso — te hace entender tu propio negocio mucho mejor.</p>
+      <p style="font-size:17px; color:var(--text-mid); line-height:1.8; margin-bottom:24px; text-align:justify;">Si quieres probarlo, está disponible en mantix-three.vercel.app con datos de ejemplo reales. Sin registro, sin instalación.</p>
+    `
+  }
+};
+
+function showArticle(id) {
+  var article = articles[id];
+  if (!article) return;
+  document.getElementById('article-content').innerHTML = article.contenido;
+  document.getElementById('article-view').style.display = 'block';
+  document.getElementById('article-view').scrollIntoView({behavior: 'smooth'});
+}
+
+function closeArticle() {
+  document.getElementById('article-view').style.display = 'none';
+  window.scrollTo(0, 0);
+}
+
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p){ p.classList.remove('active'); });
+  document.querySelectorAll('.nav-links a').forEach(function(a){ a.classList.remove('active'); });
+  document.getElementById('page-' + id).classList.add('active');
+  var navEl = document.getElementById('nav-' + id);
+  if (navEl) navEl.classList.add('active');
+  window.scrollTo(0, 0);
+  return false;
+}
+function handleSubmit() {
+  alert('Mensaje enviado. Te responderemos en menos de 24 horas.\n\ninfo@op-soluciones.com');
+}
+</script>
+</body>
+</html>
